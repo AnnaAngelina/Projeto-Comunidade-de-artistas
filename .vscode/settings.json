@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "dev_eviroment",
+            "group": "dev_dig",
+            "database": "blog_pequenos_artistas",
+            "username": "organizacao_projeto"
+        }
+    ]
+}
