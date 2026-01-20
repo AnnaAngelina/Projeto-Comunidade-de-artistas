@@ -1,0 +1,6 @@
+comunity
+venv
+Lib/**
+Scripts/** 
+pyvenv.cfg
+_pycache_/**
