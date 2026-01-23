@@ -1,18 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 import asyncpg
+from routes.Arte_routes import arteRouter
 
 app = FastAPI()
 
-async def get_db_connection():
-    return await asyncpg.connect(
-        user= "postgres",
-        password= "",
-        database="blog_pequenos_artistas",
-        host="localhost",
-    )
+app.include_router(arteRouter)
 
-@app.get('/')
-async def test_conection():
-    conn = await get_db_connection()
-    await conn.close()
-    return {'message': 'Conexão estabelecida'}
