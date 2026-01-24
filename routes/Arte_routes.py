@@ -1,7 +1,7 @@
 import asyncpg
 from database import get_db_connection
 from models import Arte
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException
 
 arteRouter = APIRouter(prefix='/arte', tags=["artes"])
 
