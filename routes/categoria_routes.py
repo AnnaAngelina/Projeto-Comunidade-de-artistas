@@ -18,4 +18,5 @@ async def listCategory():
     """Listar as categorias existentes"""
     conn = await get_db_connection()
     categorias = await conn.fetch("SELECT nome_categoria FROM categoria")
+    await conn.close()
     return {'Categorias': categorias}
