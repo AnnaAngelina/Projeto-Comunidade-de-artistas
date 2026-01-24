@@ -5,7 +5,7 @@ from typing import Optional
 class Categoria(BaseModel):
     nome_categoria: str
 
-class ArteCreate(BaseModel):
+class Arte(BaseModel):
     id_usuario: int
     id_categoria: int
     nome_arte: str
