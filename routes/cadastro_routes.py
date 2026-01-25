@@ -4,7 +4,7 @@ from models import Usuario
 from fastapi import APIRouter, HTTPException
 from starlette.status import HTTP_400_BAD_REQUEST
 
-cadastro = APIRouter(prefix='/cadastro', tags=["cadastro"])
+cadastro = APIRouter(prefix='/autenticacao', tags=["autenticacao"])
 
 # verifica se banco com o email. fetchrow retorna None se não existe ou algo se existe.
 async def usuario_ja_existe(conn, email: str):
@@ -12,7 +12,7 @@ async def usuario_ja_existe(conn, email: str):
     resultado = await conn.fetchrow(query, email)
     return resultado is not None
 
-@cadastro.post('/criar')
+@cadastro.post('/cadastro')
 async def criar(usuario: Usuario):
     conn = await get_db_connection()
 

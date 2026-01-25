@@ -21,7 +21,7 @@ class Usuario(BaseModel):
     senha: str
     numero_de_telefone: str   
     rua: str
-    numero: str               
+    numero: int               
     bairro: str
     cidade: str
     cep: str  
