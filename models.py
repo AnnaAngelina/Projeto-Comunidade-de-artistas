@@ -12,3 +12,16 @@ class Arte(BaseModel):
     descricao: Optional[str] = None
     data_publicacao: date
     data_de_criacao: date
+
+class Usuario(BaseModel):
+    nome: str
+    sobrenome: str
+    data_de_nascimento: date
+    email: str
+    senha: str
+    numero_de_telefone: str   
+    rua: str
+    numero: str               
+    bairro: str
+    cidade: str
+    cep: str  
