@@ -19,9 +19,9 @@ class Usuario(BaseModel):
     data_de_nascimento: date
     email: str
     senha: str
-    numero_de_telefone: str   
-    rua: str
-    numero: str               
-    bairro: str
-    cidade: str
-    cep: str  
+    numero_de_telefone: Optional[str] = None  
+    rua: Optional[str] = None
+    numero: Optional[str] = None               
+    bairro: Optional[str] = None
+    cidade: Optional[str] = None
+    cep: Optional[str] = None 
