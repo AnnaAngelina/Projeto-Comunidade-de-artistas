@@ -21,7 +21,7 @@ async def criar(usuario: Usuario):
         await conn.close()
         raise HTTPException( #interrompe imediatamente a execução da função
             status_code=HTTP_400_BAD_REQUEST,
-            detail="Usuário já cadastrado com esse email"
+            detail="Usuário já cadastrado com esse e-mail"
         )
 
     await conn.execute(
