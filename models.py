@@ -14,14 +14,15 @@ class Arte(BaseModel):
     data_de_criacao: date
 
 class Usuario(BaseModel):
+    username: str
     nome: str
     sobrenome: str
     data_de_nascimento: date
     email: str
     senha: str
-    numero_de_telefone: str   
-    rua: str
-    numero: int               
-    bairro: str
-    cidade: str
-    cep: str  
+    numero_de_telefone: Optional[str] = None  
+    rua: Optional[str] = None
+    numero: Optional[int] = None               
+    bairro: Optional[str] = None
+    cidade: Optional[str] = None
+    cep: Optional[str] = None
