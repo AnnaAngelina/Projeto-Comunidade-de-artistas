@@ -6,7 +6,7 @@ class Categoria(BaseModel):
     nome_categoria: str
 
 class Arte(BaseModel):
-    id_usuario: int
+    id_artista: int
     id_categoria: int
     nome_arte: str
     descricao: Optional[str] = None
@@ -21,7 +21,7 @@ class Usuario(BaseModel):
     senha: str
     numero_de_telefone: str   
     rua: str
-    numero: str               
+    numero: int               
     bairro: str
     cidade: str
     cep: str  
