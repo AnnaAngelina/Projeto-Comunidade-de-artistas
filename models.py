@@ -11,17 +11,15 @@ class Arte(BaseModel):
     nome_arte: str
     descricao: Optional[str] = None
     data_publicacao: date
-    data_de_criacao: date
+    data_criacao: date
 
 class ArteResponse(BaseModel):
-    nome: str
-    sobrenome: str
-    nome_arte: str
-    nome_categoria: str
+    artista: str
+    titulo: str
+    categoria: str
     descricao: Optional[str] = None
-    data_publicacao: date
-    data_de_criacao: date
-
+    publicacao: date
+    criacao: date
 
 class Usuario(BaseModel):
     username: str

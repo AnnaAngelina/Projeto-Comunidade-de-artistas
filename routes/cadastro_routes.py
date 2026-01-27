@@ -12,6 +12,7 @@ async def usuario_ja_existe(conn, email: str):
     resultado = await conn.fetchrow(query, email)
     return resultado is not None
 
+
 @cadastro.post('/cadastro')
 async def criar(usuario: Usuario):
     conn = await get_db_connection()

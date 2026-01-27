@@ -22,31 +22,35 @@ async def get_usuario(nickname: str):
     return usuario
 
 
-@usuarioRouter.put('/update/{nickname}')
+@usuarioRouter.put('/update/{nickname}') 
 async def update_usuario(nickname: str, usuario_edit: Usuario):
-    conn = await get_db_connection()
-
-    user_upd = await conn.fetch('SELECT * FROM usuario WHERE username = $1', nickname)
-    if user_upd:
-        await conn.execute('UPDATE usuario SET usuario.username = $1, usuario.nome = $2, usuario.sobrenome = $3, usuario.data_de_nascimento = $4, usuario.email = $5, usuario.senha = $6, usuario.numero_de_telefone = $7, usuario.rua = $8, usuario.numero = $9, usuario.bairro = $10, usuario.cidade = $11, usuario.cep = $12',
-                           usuario_edit.username,
-                           usuario_edit.nome,
-                           usuario_edit.sobrenome,
-                           usuario_edit.data_de_nascimento,
-                           usuario_edit.email,
-                           usuario_edit.senha,
-                           usuario_edit.numero_de_telefone,
-                           usuario_edit.rua,
-                           usuario_edit.numero,
-                           usuario_edit.bairro,
-                           usuario_edit.cidade,
-                           usuario_edit.cep)
-    else: 
-        raise HTTPException(
-            status_code=404,
-            detail=f'O usuário com o nome de usuário {nickname} não foi encontrado.'
-        )
+    conn = await get_db_connection() 
+     
+    user_upd = await conn.fetchrow('SELECT 1 FROM usuario WHERE username = $1', nickname) 
+     
+    if user_upd: 
+         await conn.execute('UPDATE usuario SET username = $1, nome = $2, sobrenome = $3, data_de_nascimento = $4, email = $5, senha = $6, numero_de_telefone = $7, rua = $8, numero = $9, bairro = $10, cidade = $11, cep = $12 WHERE username = $13', 
+                            usuario_edit.username, 
+                            usuario_edit.nome, 
+                            usuario_edit.sobrenome, 
+                            usuario_edit.data_de_nascimento, 
+                            usuario_edit.email, 
+                            usuario_edit.senha, 
+                            usuario_edit.numero_de_telefone, 
+                            usuario_edit.rua, 
+                            usuario_edit.numero, 
+                            usuario_edit.bairro, 
+                            usuario_edit.cidade, 
+                            usuario_edit.cep, 
+                            nickname) 
+        
+    else:
+         raise HTTPException(
+              status_code=404, 
+              detail=f'O usuário com o nome de usuário {nickname} não foi encontrado.' 
+              )
     await conn.close()
+    return {"message": "Usuário atualizado com sucesso"}
 
 
 @usuarioRouter.delete('delete/{nickname}')
@@ -56,12 +60,15 @@ async def delete(nickname: str):
     user_del = await conn.fetch('SELECT * FROM usuario WHERE username = $1', nickname)
     if user_del:
         await conn.execute('DELETE FROM usuario WHERE username = $1', nickname)
+        return {"message": "Usuário deletado com sucesso."}
+
     else: 
+        await conn.close()
         raise HTTPException(
             status_code=404,
             detail=f'O usuário com o nome de usuário {nickname} não foi encontrado.'
         )
-    await conn.close()
+        
 
 
     
