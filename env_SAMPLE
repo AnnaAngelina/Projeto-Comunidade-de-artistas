@@ -1,0 +1,5 @@
+DB_USER= <seu_usuario>,
+DB_PASSWORD= <>,
+DB_DATABASE="blog_pequenos_artistas",
+DB_HOST="localhost",
+DB_PORT = 5432

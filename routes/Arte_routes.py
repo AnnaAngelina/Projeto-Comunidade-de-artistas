@@ -1,6 +1,6 @@
 import asyncpg
 from database import get_db_connection
-from models import Arte
+from models import Arte, ArteResponse
 from fastapi import APIRouter, HTTPException
 
 arteRouter = APIRouter(prefix='/arte', tags=["artes"])
@@ -13,18 +13,27 @@ async def newArt(arte: Arte):
     await conn.close()
     return {"message": f"Arte ({arte.nome_arte}) adicionada com sucesso!"}
 
-
-@arteRouter.get('/list-arts')
+# como envia dados ao servidor o modelo de resposta deve ser enviado para a rota de visualizacao
+@arteRouter.get('/list-arts', response_model= ArteResponse)
 async def listArt():
     """Mostrar as artes cadastradas"""
     conn = await get_db_connection()
-    arts = await conn.fetch("SELECT id_arte, nome, sobrenome, nome_arte, nome_categoria, descricao, data_publicacao, data_de_criacao FROM artes INNER JOIN usuario USING (id_usuario) INNER JOIN categoria USING (id_categoria)")
+    arts = await conn.fetch("SELECT nome, sobrenome, nome_arte, nome_categoria, descricao, data_publicacao, data_de_criacao FROM artes INNER JOIN usuario USING (id_usuario) INNER JOIN categoria USING (id_categoria)")
     await conn.close()
     colecao = []
     for art in arts:
-        colecao.append({'id': art["id_arte"], 'artista': f'{art["nome"]} {art["sobrenome"]}', 'título da obra': f'{art["nome_arte"]}', 'categoria': f'{art["nome_categoria"]}', 'descrição': f'{art["descricao"]}', 'data de publicação': f'{art["data_publicacao"]}', 'data de criação': f'{art["data_de_criacao"]}'})
+        colecao.append({'artista': f'{art["nome"]} {art["sobrenome"]}', 'título da obra': f'{art["nome_arte"]}', 'categoria': f'{art["nome_categoria"]}', 'descrição': f'{art["descricao"]}', 'data de publicação': f'{art["data_publicacao"]}', 'data de criação': f'{art["data_de_criacao"]}'})
     return {"Total de artes": len(colecao), "Artes": colecao}
 
+@arteRouter.get('/{name_art}')
+async def searchArt(name_art: str):
+    """Pesquisar arte em específico"""
+    conn = await get_db_connection()
+    artes = await conn.fetch("SELECT * FROM artes WHERE nome_arte = $1", name_art)
+    if artes:
+        return {'Arte(s) encontrada': artes}
+    else:
+        raise HTTPException(status_code=404, detail=f"Não há Arte com o título ({name_art})")
 
 @arteRouter.put('/{id_art}')
 async def updateArt(id_art: int, arte: Arte):
