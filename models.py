@@ -36,3 +36,8 @@ class Usuario(BaseModel):
     bairro: Optional[str] = None
     cidade: Optional[str] = None
     cep: Optional[str] = None
+
+class Login(BaseModel):
+    email: str
+    senha: str
+

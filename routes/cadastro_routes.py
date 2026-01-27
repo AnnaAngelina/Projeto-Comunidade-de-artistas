@@ -48,3 +48,6 @@ async def criar(usuario: Usuario):
 
     await conn.close()
     return {"message": f"Usuário ({usuario.nome}) cadastrado com sucesso!"}
+
+
+
