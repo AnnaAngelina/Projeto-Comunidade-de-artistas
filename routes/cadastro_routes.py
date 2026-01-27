@@ -27,11 +27,12 @@ async def criar(usuario: Usuario):
     await conn.execute(
         """
         INSERT INTO usuario (
-            nome, sobrenome, data_de_nascimento, email, senha,
+            username, nome, sobrenome, data_de_nascimento, email, senha,
             numero_de_telefone, rua, numero, bairro, cidade, cep
         )
-        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
         """,
+        usuario.username,
         usuario.nome,
         usuario.sobrenome,
         usuario.data_de_nascimento,

@@ -3,4 +3,5 @@ venv
 Lib/**
 Scripts/** 
 pyvenv.cfg
-_pycache_/**
+/__pycache__/
+/__pycache__/**

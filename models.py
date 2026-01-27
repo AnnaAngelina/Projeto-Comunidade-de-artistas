@@ -24,6 +24,7 @@ class ArteResponse(BaseModel):
 
 
 class Usuario(BaseModel):
+    username: str
     nome: str
     sobrenome: str
     data_de_nascimento: date
@@ -31,7 +32,7 @@ class Usuario(BaseModel):
     senha: str
     numero_de_telefone: Optional[str] = None  
     rua: Optional[str] = None
-    numero: Optional[str] = None               
+    numero: Optional[int] = None               
     bairro: Optional[str] = None
     cidade: Optional[str] = None
     cep: Optional[str] = None
